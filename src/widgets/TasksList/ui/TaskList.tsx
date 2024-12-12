@@ -43,7 +43,7 @@ export const TaskList = () => {
 			{isLoading ? <CircularProgress color="success" /> : null}
 			<Grid2 container spacing={2}>
 				{filteredTasks.map((task) => (
-					<Grid2 size={3} key={task.id}>
+					<Grid2 size={{ lg: 3, md: 3, xs: 6 }} key={task.id}>
 						<Task
 							userId={task.userId}
 							id={task.id}
