@@ -1,6 +1,8 @@
 import { ITodoTask } from '@/src/shared/model';
-import { Card, CardContent, Stack, Typography } from '@mui/material';
+import { Card, CardActions, CardContent, IconButton, Stack, Typography } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
+import DoneAllIcon from '@mui/icons-material/DoneAll';
+import RemoveDoneIcon from '@mui/icons-material/RemoveDone';
 
 export const Task = ({ userId, id, title, completed }: ITodoTask) => {
 	return (
@@ -20,6 +22,17 @@ export const Task = ({ userId, id, title, completed }: ITodoTask) => {
 					</Typography>
 				</Stack>
 			</CardContent>
+			<CardActions>
+				{completed ? (
+					<IconButton size="small" aria-label="uncomplete" color="secondary">
+						<RemoveDoneIcon />
+					</IconButton>
+				) : (
+					<IconButton size="small" aria-label="complete" color="primary">
+						<DoneAllIcon />
+					</IconButton>
+				)}
+			</CardActions>
 		</Card>
 	);
 };
