@@ -3,18 +3,21 @@ import { MouseEvent, useEffect, useState } from 'react';
 import { Task } from '@/src/entities/Task';
 import { TaskFilter, TaskFilterOptions } from '@/src/features/TaskFilter';
 import { CircularProgress, Grid2, Stack } from '@mui/material';
-import { getTodoTasks } from '@/src/shared/api';
-import { ITodoTask } from '@/src/shared/model';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '@/src/app/store';
+import { getTaskList } from '../model/taskListSlice';
 
 export const TaskList = () => {
 	const [selectedStatus, setSelectedStatus] = useState<TaskFilterOptions>('all');
-	const [tasks, setTasks] = useState<ITodoTask[]>([]);
-	const [isLoading, setIsLoading] = useState<boolean>(false);
+
+	const { isLoading, taskList } = useSelector((s: RootState) => s.taskList);
+
+	const dispatch = useDispatch<AppDispatch>();
 
 	const statusChangeHandler = (e: MouseEvent<HTMLElement>, newValue: TaskFilterOptions) =>
 		setSelectedStatus(newValue);
 
-	const filteredTasks = tasks.filter((task) => {
+	const filteredTasks = taskList.filter((task) => {
 		if (selectedStatus === 'completed') {
 			return task.completed;
 		} else if (selectedStatus === 'uncompleted') {
@@ -25,14 +28,8 @@ export const TaskList = () => {
 	});
 
 	useEffect(() => {
-		const getTasks = async () => {
-			setIsLoading(true);
-			const res = await getTodoTasks();
-			setTasks(res);
-			setIsLoading(false);
-		};
-		getTasks();
-	}, []);
+		dispatch(getTaskList());
+	}, [dispatch]);
 
 	return (
 		<Stack spacing={2} alignItems="center">

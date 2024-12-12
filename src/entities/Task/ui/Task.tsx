@@ -3,15 +3,8 @@ import { Card, CardActions, CardContent, IconButton, Stack, Typography } from '@
 import PersonIcon from '@mui/icons-material/Person';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 import RemoveDoneIcon from '@mui/icons-material/RemoveDone';
-import { useState } from 'react';
 
 export const Task = ({ userId, id, title, completed }: ITodoTask) => {
-	const [completeStatus, setCompleteStatus] = useState(completed);
-
-	const updateCompleteStatusHandler = () => {
-		setCompleteStatus((state) => !state);
-	};
-
 	return (
 		<Card variant="outlined">
 			<CardContent>
@@ -30,22 +23,12 @@ export const Task = ({ userId, id, title, completed }: ITodoTask) => {
 				</Stack>
 			</CardContent>
 			<CardActions>
-				{completeStatus ? (
-					<IconButton
-						onClick={updateCompleteStatusHandler}
-						size="small"
-						aria-label="uncomplete"
-						color="secondary"
-					>
+				{completed ? (
+					<IconButton aria-label="uncomplete" color="secondary">
 						<RemoveDoneIcon />
 					</IconButton>
 				) : (
-					<IconButton
-						onClick={updateCompleteStatusHandler}
-						size="small"
-						aria-label="complete"
-						color="primary"
-					>
+					<IconButton aria-label="complete" color="primary">
 						<DoneAllIcon />
 					</IconButton>
 				)}
