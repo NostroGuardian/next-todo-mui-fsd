@@ -3,15 +3,16 @@ import { Card, CardActions, CardContent, IconButton, Stack, Typography } from '@
 import PersonIcon from '@mui/icons-material/Person';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 import RemoveDoneIcon from '@mui/icons-material/RemoveDone';
-import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '@/src/app/store';
+import { updateTask } from '@/src/widgets/TasksList';
 
 export const Task = ({ userId, id, title, completed }: ITodoTask) => {
-	const [completeStatus, setCompleteStatus] = useState(completed);
+	const dispatch = useDispatch<AppDispatch>();
 
-	const updateCompleteStatusHandler = () => {
-		setCompleteStatus((state) => !state);
+	const statusChangeHandler = () => {
+		dispatch(updateTask({ userId, id, title, completed: !completed }));
 	};
-
 	return (
 		<Card variant="outlined">
 			<CardContent>
@@ -30,10 +31,9 @@ export const Task = ({ userId, id, title, completed }: ITodoTask) => {
 				</Stack>
 			</CardContent>
 			<CardActions>
-				{completeStatus ? (
+				{completed ? (
 					<IconButton
-						onClick={updateCompleteStatusHandler}
-						size="small"
+						onClick={statusChangeHandler}
 						aria-label="uncomplete"
 						color="secondary"
 					>
@@ -41,8 +41,7 @@ export const Task = ({ userId, id, title, completed }: ITodoTask) => {
 					</IconButton>
 				) : (
 					<IconButton
-						onClick={updateCompleteStatusHandler}
-						size="small"
+						onClick={statusChangeHandler}
 						aria-label="complete"
 						color="primary"
 					>
