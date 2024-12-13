@@ -3,6 +3,7 @@ import { Card, CardActions, CardContent, IconButton, Stack, Typography } from '@
 import PersonIcon from '@mui/icons-material/Person';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 import RemoveDoneIcon from '@mui/icons-material/RemoveDone';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/src/app/store';
 import { updateTask } from '@/src/widgets/TasksList';
@@ -13,6 +14,9 @@ export const Task = ({ userId, id, title, completed }: ITodoTask) => {
 	const statusChangeHandler = () => {
 		dispatch(updateTask({ userId, id, title, completed: !completed }));
 	};
+
+	const deleteTaskHandler = () => {};
+
 	return (
 		<Card variant="outlined">
 			<CardContent>
@@ -48,6 +52,16 @@ export const Task = ({ userId, id, title, completed }: ITodoTask) => {
 						<DoneAllIcon />
 					</IconButton>
 				)}
+				<IconButton
+					onClick={deleteTaskHandler}
+					aria-label="delete"
+					sx={{
+						color: '#983030',
+						'&:hover': { backgroundColor: 'rgb(255 99 99 / 8%)' },
+					}}
+				>
+					<DeleteOutlineIcon />
+				</IconButton>
 			</CardActions>
 		</Card>
 	);

@@ -9,7 +9,7 @@ export const Home = () => {
 		<Provider store={store}>
 			<Stack spacing={2} alignItems="center" padding={2}>
 				<Typography variant="h4" color="textSecondary">
-					Home page
+					My tasks
 				</Typography>
 				<TaskList />
 			</Stack>
