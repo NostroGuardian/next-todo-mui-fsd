@@ -16,6 +16,8 @@ import { useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import MenuIcon from '@mui/icons-material/Menu';
 
+// -------- НЕОБХОДИМО РАЗБИТЬ НА БОЛЕЕ МЕЛКИЕ СЛОИ -------- //
+
 export const Header = () => {
 	const logoColor = blueGrey[200];
 	const navLinksColor = grey[200];
