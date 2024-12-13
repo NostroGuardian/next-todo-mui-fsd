@@ -11,3 +11,7 @@ export const getTodoTasks = (): Promise<ITodoTask[]> => {
 export const updateTodoTask = (task: ITodoTask): Promise<ITodoTask> => {
 	return axios.put<ITodoTask>(`${baseUrl}/${task.id}`, task).then((res) => res.data);
 };
+
+export const deleteTodoTask = (taskId: number): Promise<string> => {
+	return axios.delete<string>(`${baseUrl}/${taskId}`).then((res) => res.data);
+};
