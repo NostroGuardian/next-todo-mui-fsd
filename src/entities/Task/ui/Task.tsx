@@ -14,7 +14,7 @@ import RemoveDoneIcon from '@mui/icons-material/RemoveDone';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/src/app/store';
-import { updateTask } from '@/src/widgets/TasksList';
+import { deleteTask, updateTask } from '@/src/widgets/TasksList';
 
 export const Task = ({ userId, id, title, completed }: ITodoTask) => {
 	const dispatch = useDispatch<AppDispatch>();
@@ -23,7 +23,9 @@ export const Task = ({ userId, id, title, completed }: ITodoTask) => {
 		dispatch(updateTask({ userId, id, title, completed: !completed }));
 	};
 
-	const deleteTaskHandler = () => {};
+	const deleteTaskHandler = () => {
+		dispatch(deleteTask(id));
+	};
 
 	return (
 		<Card variant="outlined">

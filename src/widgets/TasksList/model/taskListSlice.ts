@@ -1,4 +1,4 @@
-import { getTodoTasks, updateTodoTask } from '@/src/shared/api';
+import { deleteTodoTask, getTodoTasks, updateTodoTask } from '@/src/shared/api';
 import { ITodoTask } from '@/src/shared/model';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
@@ -44,6 +44,20 @@ export const updateTask = createAsyncThunk<ITodoTask | undefined, ITodoTask>(
 	}
 );
 
+export const deleteTask = createAsyncThunk<number | undefined, number>(
+	'taskList/deleteTask',
+	async (taskId: number) => {
+		try {
+			await deleteTodoTask(taskId);
+			return taskId;
+		} catch (e) {
+			if (e instanceof AxiosError) {
+				throw new Error(e.response?.data.message);
+			}
+		}
+	}
+);
+
 export const taskListSlice = createSlice({
 	name: 'taskList',
 	initialState,
@@ -80,6 +94,16 @@ export const taskListSlice = createSlice({
 			state.taskUpdateLoading = false;
 		});
 		builder.addCase(updateTask.rejected, (state) => {
+			state.taskUpdateLoading = false;
+		});
+		builder.addCase(deleteTask.pending, (state) => {
+			state.taskUpdateLoading = true;
+		});
+		builder.addCase(deleteTask.fulfilled, (state, action) => {
+			state.taskList = state.taskList.filter((task) => task.id !== action.payload);
+			state.taskUpdateLoading = false;
+		});
+		builder.addCase(deleteTask.rejected, (state) => {
 			state.taskUpdateLoading = false;
 		});
 	},
