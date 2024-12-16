@@ -2,11 +2,15 @@
 
 It is a simple web application that allows the user to manage their tasks and affairs.
 
+## Demo
+
+[Link to live demo](https://nostro-todo.vercel.app/)
+
 ## Tech Stack
 
 **Client:** React, Redux Toolkit, MUI
 
-**Server:** dummyjson
+**Server:** retoolapi
 
 **Arch:** Feature-Sliced Design
 
