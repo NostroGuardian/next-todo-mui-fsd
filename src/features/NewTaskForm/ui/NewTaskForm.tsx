@@ -2,6 +2,7 @@
 import { LoadingButton } from '@mui/lab';
 import {
 	Alert,
+	Box,
 	Button,
 	Collapse,
 	FormControl,
@@ -10,18 +11,28 @@ import {
 	Select,
 	TextField,
 } from '@mui/material';
-import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/src/app/store';
 import { createNewTask } from '../model/newTaskFormSlice';
 import { ITodoTask } from '@/src/shared/model';
+import { Controller, useForm } from 'react-hook-form';
+import { IFormValues } from '../model/formValues';
 
 export const NewTaskForm = () => {
-	const [titleValue, setTitleValue] = useState<string>('');
-	const [useridValue, setUseridValue] = useState<number>(1);
-	const [contentValue, setContentValue] = useState<string>('');
-
 	const { isInProcess, isSuccessfully } = useSelector((s: RootState) => s.newTaskForm);
+
+	const {
+		control,
+		handleSubmit,
+		formState: { errors },
+		reset,
+	} = useForm<IFormValues>({
+		defaultValues: {
+			title: '',
+			content: '',
+			userId: 1,
+		},
+	});
 
 	const existedTasks: ITodoTask[] = useSelector(
 		(s: RootState) => s.newTaskForm.existedTasks
@@ -31,69 +42,92 @@ export const NewTaskForm = () => {
 		return task.id > max ? task.id : max;
 	}, 0);
 
-	const newTaskData: ITodoTask = {
-		userId: Number(useridValue),
-		id: maxTaskId + 1,
-		title: titleValue,
-		content: contentValue,
-		completed: false,
-	};
-
 	const dispatch = useDispatch<AppDispatch>();
 
-	const createTaskHandler = () => {
+	const createTaskHandler = (data: IFormValues) => {
+		const newTaskData: ITodoTask = {
+			userId: Number(data.userId),
+			id: maxTaskId + 1,
+			title: data.title,
+			content: data.content,
+			completed: false,
+		};
 		dispatch(createNewTask(newTaskData));
-		setTitleValue('');
-		setContentValue('');
-		setUseridValue(1);
+		reset();
 	};
 
 	return (
-		<>
-			<TextField
-				value={titleValue}
-				onChange={(e) => setTitleValue(e.target.value)}
-				autoComplete="off"
-				variant="outlined"
-				id="task-title"
-				label="Title"
-				color="success"
-				sx={{ width: 200 }}
+		<Box
+			component="form"
+			onSubmit={handleSubmit(createTaskHandler)}
+			sx={{
+				display: 'flex',
+				flexDirection: 'column',
+				gap: 3,
+				alignItems: 'center',
+			}}
+		>
+			<Controller
+				name="title"
+				control={control}
+				rules={{
+					required: 'Title is required',
+				}}
+				render={({ field }) => (
+					<TextField
+						{...field}
+						autoComplete="off"
+						variant="outlined"
+						label="Title"
+						color="success"
+						sx={{ width: 250 }}
+						error={!!errors.title}
+						helperText={errors.title ? errors.title.message : ''}
+					/>
+				)}
 			/>
-			<TextField
-				value={contentValue}
-				onChange={(e) => setContentValue(e.target.value)}
-				autoComplete="off"
-				variant="outlined"
-				id="task-content"
-				label="Content"
-				color="success"
-				sx={{ width: 200 }}
+
+			<Controller
+				name="content"
+				control={control}
+				rules={{ required: 'Content is required' }}
+				render={({ field }) => (
+					<TextField
+						{...field}
+						autoComplete="off"
+						variant="outlined"
+						label="Content"
+						color="success"
+						sx={{ width: 250 }}
+						error={!!errors.content}
+						helperText={errors.content ? errors.content.message : ''}
+					/>
+				)}
 			/>
-			<FormControl sx={{ width: 200 }}>
+
+			<FormControl sx={{ width: 250 }}>
 				<InputLabel id="user-label" color="success">
 					User
 				</InputLabel>
-				<Select
-					id="user-select"
-					labelId="user-label"
-					value={useridValue}
-					color="success"
-					label="User"
-					onChange={(e) => {
-						setUseridValue(Number(e.target.value));
-					}}
-				>
-					<MenuItem value={1}>User 1</MenuItem>
-					<MenuItem value={2}>User 2</MenuItem>
-					<MenuItem value={3}>User 3</MenuItem>
-				</Select>
+				<Controller
+					name="userId"
+					control={control}
+					defaultValue={1}
+					render={({ field }) => (
+						<Select {...field} labelId="user-label" color="success" label="User">
+							<MenuItem value={1}>User 1</MenuItem>
+							<MenuItem value={2}>User 2</MenuItem>
+							<MenuItem value={3}>User 3</MenuItem>
+						</Select>
+					)}
+				/>
 			</FormControl>
 			<LoadingButton
-				onClick={createTaskHandler}
+				type="submit"
 				loading={isInProcess}
 				variant="outlined"
 				color="success"
+				size="large"
 			>
 				Create task
 			</LoadingButton>
@@ -109,6 +143,6 @@ export const NewTaskForm = () => {
 					New task created successfully!
 				</Alert>
 			</Collapse>
-		</>
+		</Box>
 	);
 };

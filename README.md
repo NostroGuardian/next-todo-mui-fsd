@@ -8,7 +8,7 @@ It is a simple web application that allows the user to manage their tasks and af
 
 ## Tech Stack
 
-**Client:** React, Redux Toolkit, MUI
+**Client:** NextJs, Redux Toolkit, MUI, React Hook Form, Axios
 
 **Server:** retoolapi
 
