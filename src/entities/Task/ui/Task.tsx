@@ -16,11 +16,11 @@ import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/src/app/store';
 import { deleteTask, updateTask } from '@/src/widgets/TasksList';
 
-export const Task = ({ userId, id, title, completed }: ITodoTask) => {
+export const Task = ({ userId, id, title, content, completed }: ITodoTask) => {
 	const dispatch = useDispatch<AppDispatch>();
 
 	const statusChangeHandler = () => {
-		dispatch(updateTask({ userId, id, title, completed: !completed }));
+		dispatch(updateTask({ userId, id, title, content, completed: !completed }));
 	};
 
 	const deleteTaskHandler = () => {
@@ -35,6 +35,9 @@ export const Task = ({ userId, id, title, completed }: ITodoTask) => {
 						#{id}
 					</Typography>
 					<Typography variant="h5">{title}</Typography>
+					<Typography variant="body2" color="textSecondary">
+						{content}
+					</Typography>
 					<Chip
 						size="small"
 						label={completed ? 'completed' : 'uncompleted'}
