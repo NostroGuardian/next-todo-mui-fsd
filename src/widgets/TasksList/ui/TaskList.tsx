@@ -1,10 +1,11 @@
 'use client';
-import { MouseEvent, useEffect, useState } from 'react';
+import { AppDispatch, RootState } from '@/src/app/store';
 import { Task } from '@/src/entities/Task';
 import { TaskFilter, TaskFilterOptions } from '@/src/features/TaskFilter';
 import { CircularProgress, Grid2, Stack } from '@mui/material';
+import { MouseEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '@/src/app/store';
+
 import { getTaskList } from '../model/taskListSlice';
 
 export const TaskList = () => {

@@ -1,4 +1,8 @@
 'use client';
+import AddIcon from '@mui/icons-material/Add';
+import CloseIcon from '@mui/icons-material/Close';
+import ContentPasteOutlinedIcon from '@mui/icons-material/ContentPasteOutlined';
+import MenuIcon from '@mui/icons-material/Menu';
 import {
 	AppBar,
 	Box,
@@ -9,12 +13,8 @@ import {
 	Toolbar,
 	Typography,
 } from '@mui/material';
-import ContentPasteOutlinedIcon from '@mui/icons-material/ContentPasteOutlined';
 import { blueGrey, grey } from '@mui/material/colors';
-import AddIcon from '@mui/icons-material/Add';
 import { useState } from 'react';
-import CloseIcon from '@mui/icons-material/Close';
-import MenuIcon from '@mui/icons-material/Menu';
 
 export const Header = () => {
 	const logoColor = blueGrey[200];

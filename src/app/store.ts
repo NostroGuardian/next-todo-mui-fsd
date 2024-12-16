@@ -1,7 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { taskListSlice } from '../widgets/TasksList';
+
 import { newTaskFormSlice } from '../features/NewTaskForm';
 import { saveState } from '../shared/utils/persistentStorage';
+import { taskListSlice } from '../widgets/TasksList';
 
 export const store = configureStore({
 	reducer: {

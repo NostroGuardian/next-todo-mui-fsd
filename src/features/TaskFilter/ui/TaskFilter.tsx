@@ -1,4 +1,5 @@
 import { ToggleButton, ToggleButtonGroup } from '@mui/material';
+
 import { ITaskFilterProps } from './TaskFilter.props';
 
 export const TaskFilter = ({ selectedStatus, statusChangeHandler }: ITaskFilterProps) => {
