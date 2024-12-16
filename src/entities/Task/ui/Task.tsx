@@ -1,4 +1,10 @@
+import { AppDispatch } from '@/src/app/store';
 import { ITodoTask } from '@/src/shared/model';
+import { deleteTask, updateTask } from '@/src/widgets/TasksList';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import DoneAllIcon from '@mui/icons-material/DoneAll';
+import PersonIcon from '@mui/icons-material/Person';
+import RemoveDoneIcon from '@mui/icons-material/RemoveDone';
 import {
 	Card,
 	CardActions,
@@ -8,13 +14,7 @@ import {
 	Stack,
 	Typography,
 } from '@mui/material';
-import PersonIcon from '@mui/icons-material/Person';
-import DoneAllIcon from '@mui/icons-material/DoneAll';
-import RemoveDoneIcon from '@mui/icons-material/RemoveDone';
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { useDispatch } from 'react-redux';
-import { AppDispatch } from '@/src/app/store';
-import { deleteTask, updateTask } from '@/src/widgets/TasksList';
 
 export const Task = ({ userId, id, title, content, completed }: ITodoTask) => {
 	const dispatch = useDispatch<AppDispatch>();

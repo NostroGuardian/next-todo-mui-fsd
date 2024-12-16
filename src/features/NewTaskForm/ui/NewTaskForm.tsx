@@ -1,4 +1,6 @@
 'use client';
+import { AppDispatch, RootState } from '@/src/app/store';
+import { ITodoTask } from '@/src/shared/model';
 import { LoadingButton } from '@mui/lab';
 import {
 	Alert,
@@ -11,12 +13,11 @@ import {
 	Select,
 	TextField,
 } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '@/src/app/store';
-import { createNewTask } from '../model/newTaskFormSlice';
-import { ITodoTask } from '@/src/shared/model';
 import { Controller, useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+
 import { IFormValues } from '../model/formValues';
+import { createNewTask } from '../model/newTaskFormSlice';
 
 export const NewTaskForm = () => {
 	const { isInProcess, isSuccessfully } = useSelector((s: RootState) => s.newTaskForm);
