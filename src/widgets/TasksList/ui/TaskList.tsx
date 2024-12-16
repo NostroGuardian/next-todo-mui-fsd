@@ -45,6 +45,7 @@ export const TaskList = () => {
 							userId={task.userId}
 							id={task.id}
 							title={task.title}
+							content={task.content}
 							completed={task.completed}
 						/>
 					</Grid2>

@@ -19,6 +19,7 @@ import { ITodoTask } from '@/src/shared/model';
 export const NewTaskForm = () => {
 	const [titleValue, setTitleValue] = useState<string>('');
 	const [useridValue, setUseridValue] = useState<number>(1);
+	const [contentValue, setContentValue] = useState<string>('');
 
 	const { isInProcess, isSuccessfully } = useSelector((s: RootState) => s.newTaskForm);
 
@@ -34,6 +35,7 @@ export const NewTaskForm = () => {
 		userId: Number(useridValue),
 		id: maxTaskId + 1,
 		title: titleValue,
+		content: contentValue,
 		completed: false,
 	};
 
@@ -42,6 +44,7 @@ export const NewTaskForm = () => {
 	const createTaskHandler = () => {
 		dispatch(createNewTask(newTaskData));
 		setTitleValue('');
+		setContentValue('');
 		setUseridValue(1);
 	};
 
@@ -54,6 +57,16 @@ export const NewTaskForm = () => {
 				variant="outlined"
 				id="task-title"
 				label="Title"
+				color="success"
+				sx={{ width: 200 }}
+			/>
+			<TextField
+				value={contentValue}
+				onChange={(e) => setContentValue(e.target.value)}
+				autoComplete="off"
+				variant="outlined"
+				id="task-content"
+				label="Content"
 				color="success"
 				sx={{ width: 200 }}
 			/>
