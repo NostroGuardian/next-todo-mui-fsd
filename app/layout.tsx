@@ -5,6 +5,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import theme from '@/src/shared/config/theme';
 import './globals.css';
 import { Header } from '@/src/widgets/Header';
+import { ReduxProvider } from '@/src/app/reduxProvider';
 
 const roboto = Roboto({
 	weight: ['300', '400', '500', '700'],
@@ -26,12 +27,14 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body className={roboto.variable}>
-				<AppRouterCacheProvider>
-					<ThemeProvider theme={theme}>
-						<Header />
-						{children}
-					</ThemeProvider>
-				</AppRouterCacheProvider>
+				<ReduxProvider>
+					<AppRouterCacheProvider>
+						<ThemeProvider theme={theme}>
+							<Header />
+							{children}
+						</ThemeProvider>
+					</AppRouterCacheProvider>
+				</ReduxProvider>
 			</body>
 		</html>
 	);
