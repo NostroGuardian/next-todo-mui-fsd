@@ -8,6 +8,10 @@ export const getTodoTasks = (): Promise<ITodoTask[]> => {
 	return axios.get<ITodoTask[]>(baseUrl).then((res) => res.data);
 };
 
+export const createTodoTask = (task: ITodoTask): Promise<ITodoTask> => {
+	return axios.post<ITodoTask>(baseUrl, task).then((res) => res.data);
+};
+
 export const updateTodoTask = (task: ITodoTask): Promise<ITodoTask> => {
 	return axios.put<ITodoTask>(`${baseUrl}/${task.id}`, task).then((res) => res.data);
 };
