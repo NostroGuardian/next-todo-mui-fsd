@@ -7,7 +7,6 @@ import { Provider } from 'react-redux';
 export const Home = () => {
 	return (
 		<Provider store={store}>
-			<h1>TEST</h1>
 			<Stack spacing={2} alignItems="center" padding={2}>
 				<Typography variant="h4" color="textSecondary">
 					My tasks

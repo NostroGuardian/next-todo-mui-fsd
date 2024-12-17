@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { ITodoTask } from '../../model';
 
-const baseUrl = 'https://retoolapi.dev/ybjlfo/data';
+const baseUrl = 'https://retoolapi.dev/OpCswr/data';
 
 export const getTodoTasks = (): Promise<ITodoTask[]> => {
 	return axios.get<ITodoTask[]>(baseUrl).then((res) => res.data);

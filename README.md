@@ -8,7 +8,7 @@ It is a simple web application that allows the user to manage their tasks and af
 
 ## Tech Stack
 
-**Client:** NextJs, Redux Toolkit, MUI, React Hook Form, Axios
+**Client:** NextJs, Redux Toolkit, MUI, React Hook Form, Axios, Jest & TestingLibrary
 
 **Server:** retoolapi
 
@@ -38,4 +38,12 @@ Start the server
 
 ```bash
   npm run dev
+```
+
+## Running Tests
+
+To run tests, run the following command
+
+```bash
+  npm run test
 ```
